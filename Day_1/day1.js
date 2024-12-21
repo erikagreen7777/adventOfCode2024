@@ -1,5 +1,4 @@
 const fs = require('fs');
-const { type } = require('os');
 
 const input = fs.readFileSync('./input.txt', 'utf-8'); 
 let leftList = [];
@@ -11,7 +10,7 @@ const lines = input.split('\n');
 // Separate columns
 for (let i = 0; i< lines.length; i++) {
     let one_line = Array.from(lines[i].split(/\s/));
-    let end = one_line.length-1
+    let end = one_line.length-1;
     leftList = [...leftList, one_line[0]];
     rightList = [...rightList, one_line[end]];
 }
