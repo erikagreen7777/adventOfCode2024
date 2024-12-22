@@ -6,25 +6,51 @@ const lines = input.split('\n');
 let safeCounter = 0;
 
 function isDesc(arr) {
-    return arr.every((val, i) => i === 0 || val <= arr[i - 1]);
+    const n = arr.length;
+    for (let i = 1; i < n; i++) {
+        if (arr[i - 1] <= arr[i]) {
+            return false;
+        }
+    }
+    return true;
 }
 
 function isAsc(arr) {
-    return arr.every((val, i) => i === 0 || val >= arr[i - 1]);
+    const n = arr.length;
+    for (let i = 1; i < n; i++) {
+        if (arr[i - 1] >= arr[i]) {
+            return false;
+        }
+    }
+    return true;
 }
 
 function isOrdered(arr) {
-    console.log(isAsc(arr) || isDesc(arr));
     return isAsc(arr) || isDesc(arr);
 }
 
+
 function isSafe(arr) {
-    isOrdered(arr);
+    let numArray = arr.map(Number);
+    let bool;
+    if (isOrdered(numArray)) {
+        for (let i = 1; i < numArray.length; i++) {
+            const diff = Math.abs(numArray[i] - numArray[i - 1]);
+            if (diff > 3) {
+                bool = false;
+                break;
+            } else {
+                bool = true;
+            }
+        }
+    }
+    return bool;
 }
 
-for (let i = 0; i < 6; i++) {
+for (let i = 0; i < lines.length; i++) {
     let one_line = Array.from(lines[i].split(' '));
-    console.log(one_line)
-    isSafe(one_line);
-
+    if (isSafe(one_line)) {
+        safeCounter += 1;
+    }
 }
+console.log(safeCounter);

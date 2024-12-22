@@ -24,6 +24,9 @@ for (let i = 0; i < lines.length ; i++) {
     let greaterNumber = leftList[i] >= rightList[i] ? leftList[i] : rightList[i];
     let smallerNumber = leftList[i] < rightList[i] ? leftList[i] : rightList[i]; 
     let difference = greaterNumber - smallerNumber;
+    /* TODO:
+    substitute difference with abslute values (Math.abs())
+    */
     differenceArray = [...differenceArray, difference]
 }
 
