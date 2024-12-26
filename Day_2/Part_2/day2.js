@@ -23,7 +23,6 @@ function isAsc(arr) {
             return false;
         }
     }
-    console.log(`isAsc yes: ${arr}`);
     return true;
 }
 
@@ -49,23 +48,24 @@ function problemDampener(arr, funcToTest) {
     return result;
 }
 
+/* IT'S HERE - THE ISSUE'S HERE WITH RESULT */
 function isOrdered(arr) {
     let isAscend = isAsc(arr);
+    // console.log(`❤️: ${isAscend}`);
     let isDescend = isDesc(arr);
-    let result;
+    let result = { value: false, element: -1 }; ;
 
+    console.log(`original isAscend result: ${isAscend}`);
     if (!isAscend) {
         result = problemDampener(arr, isAsc);
-    }
 
-    if (!isDescend) {
+    } else if (!isDescend) {
         result = problemDampener(arr, isDesc)
     }
-
     Object.keys(result).forEach(key => {
-        console.log(`isordered: ${key}: ${result[key]}`);
-    });
-    
+        console.log(`🤔: ${key}: ${key[result]}`)
+
+    })
     return result;
 }
 
@@ -86,17 +86,21 @@ function isSafe(arr) {
     let numArray = arr.map(Number);
     let bool = false;
     let result = isOrdered(numArray);
-
-    if (result.value === true) {
+    // Object.keys(result).forEach(key => {
+    //     console.log(`isSafe: ${key}: ${result[key]}`)
+    // })
+    if (result === true) {
         bool = diffChecker(numArray);
     }
     return bool;
 }
 
-for (let i = 0; i <  lines.length ; i++) {
+for (let i = 3; i < 4 /* lines.length */; i++) {
     let one_line = Array.from(lines[i].split(' '));
     if (isSafe(one_line)) {
+        console.log(`main: ${one_line}`);
         safeCounter += 1;
+        console.log(`current safe count: ${safeCounter}`);
     }
 }
 console.log(safeCounter);
