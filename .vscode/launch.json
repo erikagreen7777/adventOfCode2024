@@ -1,0 +1,13 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "node",
+        "request": "launch",
+        "name": "Debug day2.js",
+        "program": "${workspaceFolder}/Day_2/Part_2/day2.js",
+        "cwd": "${workspaceFolder}/Day_2/Part_2",
+        "skipFiles": ["<node_internals>/**"]
+      }
+    ]
+  }
