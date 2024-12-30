@@ -31,7 +31,15 @@ function problemDampener(arr, funcToTest) {
       element: i,
     };
     if (result.value === true) {
-      break;
+      let check = diffChecker(testArr);
+      if (check === true) {
+        break;
+      } else {
+        result = {
+          value: false,
+          element: -1,
+        };
+      }
     }
   }
 
@@ -39,37 +47,22 @@ function problemDampener(arr, funcToTest) {
 }
 
 function isOrdered(arr) {
-  // let isAscend = isAsc(arr);
-  // let isDescend = isDesc(arr);
-  let isAscend = problemDampener(arr, isAsc);
-  let isDescend = problemDampener(arr, isDesc);
-  let result = {
-    value: false,
-    element: -1,
-  };
+  let originaIsAscend = isAsc(arr);
+  let originalIsDescend = isDesc(arr);
+  let originalVerdict = { value: false, element: -1 };
 
-  // RUN DIFF CHECKER HERE
-  let eitherSorted = isAscend || isDescend;
+  if (originaIsAscend || originalIsDescend) {
+    originalVerdict = diffChecker(arr);
+  }
 
-  return eitherSorted;
-  // if (eitherSorted) {
-  //   result = {
-  //     value: true,
-  //     element: -1,
-  //   };
-  //   return result;
-  // }
+  if (originalVerdict.value === true) {
+    return originalVerdict.value;
+  } else {
+    let isAscend = problemDampener(arr, isAsc);
+    let isDescend = problemDampener(arr, isDesc);
 
-  // if (!isAscend) {
-  //   result = problemDampener(arr, isAsc);
-  // }
-  // if (result.value === false) {
-  //   result = problemDampener(arr, isDesc);
-  // }
-  // if (!isDescend) {
-  //   result = problemDampener(arr, isDesc);
-  // }
-  // return result;
+    return isAscend.value || isDescend.value;
+  }
 }
 
 function diffChecker(numArray) {
@@ -88,18 +81,9 @@ function diffChecker(numArray) {
 
 function isSafe(arr) {
   let numArray = arr.map(Number);
-  let bool;
   let result = isOrdered(numArray);
-  let newArray;
 
-  if (result.value === true) {
-    newArray =
-      result.element > -1 ? numArray.toSpliced(result.element, 1) : numArray;
-    // bool = diffChecker(newArray); <--- FIGURE OUT WHAT TO DO WITH THIS
-  } else {
-    bool = false;
-  }
-  return bool;
+  return result;
 }
 
 function main() {
@@ -107,12 +91,13 @@ function main() {
   const input = fs.readFileSync("./input.txt", "utf-8");
   const lines = input.split("\n");
   let safeCounter = 0;
-  for (let i = 0; i < 3 /*lines.length*/; i++) {
+  for (let i = 0; i < lines.length; i++) {
     let one_line = Array.from(lines[i].split(" "));
     if (isSafe(one_line)) {
       safeCounter += 1;
     }
   }
+
   console.log(safeCounter);
   return safeCounter;
 }
