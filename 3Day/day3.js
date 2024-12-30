@@ -7,11 +7,16 @@ function main() {
 
   for (let i = 0; i < lines.length; i++) {
     const one_line = lines[i];
-
-    // console.log(one_line);
     const matches = [...one_line.matchAll(reg)];
-    console.log(matches);
+    for (let j = 0; j < matches.length; j++) {
+      const match = matches[j][0];
+      const num1 = match.split("(")[1].split(",")[0];
+      const num2 = match.split("(")[1].split(",")[1].split(")")[0];
+      const prod = num1 * num2;
+      total += prod;
+    }
   }
+  console.log(total);
 }
 
 main();
