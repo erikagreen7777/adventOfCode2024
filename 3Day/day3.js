@@ -1,8 +1,8 @@
 function main() {
   const fs = require("fs");
   const input = fs.readFileSync("./input.txt", "utf-8");
-  const total = 0;
-  const reg = /\d{1,3},\d{1,3}/g;
+  let total = 0;
+  const reg = /mul\(\d{1,3},\d{1,3}\)/g;
   const lines = input.split("\n");
 
   for (let i = 0; i < lines.length; i++) {
